@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --bg: #f8f9fa;
+            --text: #212529;
+            --card: #ffffff;
+        }
+        
+        .dark {
+            --primary: #4cc9f0;
+            --secondary: #b5179e;
+            --accent: #f72585;
+            --bg: #121212;
+            --text: #f8f9fa;
+            --card: #1e1e1e;
+        }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.5s, color 0.3s;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: gradient 3s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .card {
+            background: var(--card);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -3px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary);
+            left: -37px;
+            top: 5px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+            left: -30px;
+            top: 0;
+        }
+        
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+        
+        input:checked ~ .dot {
+            transform: translateX(24px);
+            background-color: var(--primary);
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Theme Toggle -->
+    <div class="fixed top-4 right-4 z-50">
+        <label class="flex items-center cursor-pointer">
+            <div class="relative">
+                <input type="checkbox" id="theme-toggle" class="sr-only">
+                <div class="block w-14 h-8 rounded-full" style="background: var(--card)"></div>
+                <div class="dot absolute top-1 left-1 w-6 h-6 rounded-full transition" style="background: var(--bg)"></div>
+            </div>
+        </label>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-16 relative overflow-hidden">
+        <div class="absolute inset-0 -z-10 opacity-30">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full" style="background: radial-gradient(circle, var(--primary) 0%, transparent 70%); filter: blur(60px);"></div>
+            <div class="absolute top-1/3 right-1/4 w-80 h-80 rounded-full" style="background: radial-gradient(circle, var(--secondary) 0%, transparent 70%); filter: blur(60px);"></div>
+        </div>
+        
+        <div class="max-w-5xl w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Hi, I'm <span class="gradient-text">Jessica Kamau</span></h1>
+                    <h2 class="text-2xl md:text-3xl font-medium mb-6 text-gray-600 dark:text-gray-300">Aspiring <span class="gradient-text">Software Engineer & Data Analyst</span></h2>
+                    <p class="text-lg mb-8 text-gray-700 dark:text-gray-300">On a journey to master code and data - one project, one insight at a time.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="px-8 py-3 rounded-full font-medium" style="background: var(--primary); color: white;">Contact Me</a>
+                        <a href="#projects" class="px-8 py-3 rounded-full font-medium" style="border: 2px solid var(--primary); color: var(--primary);">View Work</a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="rounded-full overflow-hidden w-64 h-64 md:w-80 md:h-80 mx-auto border-4" style="border-color: var(--primary);">
+                        <img src="jess.jpg" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20 flex justify-center">
+                <a href="#about" class="animate-bounce">
+                    <i class="fas fa-chevron-down text-2xl" style="color: var(--primary);"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 md:px-8 lg:px-16 section" style="background: var(--bg);">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">About <span class="gradient-text">Me</span></h1>
+                <div class="w-24 h-1 rounded-full mx-auto" style="background: linear-gradient(90deg, var(--primary), var(--secondary));"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-2xl font-semibold mb-4">Who am I?</h2>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                        I'm an aspiring software engineer and data analyst with practical experience in web development and a growing skill set in analyzing data for insights. I enjoy building interactive websites using technologies like HTML, CSS, JavaScript, and Python, while also applying tools like SPSS to interpret and visualize data
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                        My passion lies in creating solutions that are both functional and data-driven
+                    </p>
+                    
+                    <div class="mt-8">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-map-marker-alt mr-3" style="color: var(--primary);"></i>
+                            <span>Nairobi, Kenya</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-envelope mr-3" style="color: var(--primary);"></i>
+                            <span>kjessicawairimu@gmail.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-3" style="color: var(--primary);"></i>
+                            <span>(254) 700 797 805</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 class="text-2xl font-semibold mb-6">My Skills</h2>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span>HTML/CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span>JavaScript</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span>Python</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span>Data Analysis with SPSS</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class>
+                        <div class="flex justify-between mb-2">
+                            <span>React</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-4 md:px-8 lg:px-16 section" style="background: var(--card);">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Journey</span></h1>
+                <div class="w-24 h-1 rounded-full mx-auto" style="background: linear-gradient(90deg, var(--primary), var(--secondary));"></div>
+            </div>
+            
+            <div class="relative">
+                <div class="space-y-8 ml-8 md:ml-12">
+                    <div class="relative timeline-item pl-10">
+                        <div class="card p-6">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                                <h3 class="text-xl font-semibold">Freelance Web Developer</h3>
+                                <span class="text-sm font-medium px-3 py-1 rounded-full" style="background: rgba(58, 134, 255, 0.2); color: var(--primary);">2023 - Present</span>
+                            </div>
+                            <h4 class="text-lg font-medium mb-2" style="color: var(--primary);">Self employed</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                Designed and developed responsive websites and web applications for clients using HTML, CSS, JavaScript, and Python.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative timeline-item pl-10">
+                        <div class="card p-6">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                                <h3 class="text-xl font-semibold">IT Intern</h3>
+                                <span class="text-sm font-medium px-3 py-1 rounded-full" style="background: rgba(58, 134, 255, 0.2); color: var(--primary);">2025</span>
+                            </div>
+                            <h4 class="text-lg font-medium mb-2" style="color: var(--primary);">Kenya National Police DT Sacco</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                I supported IT operations. Responsibilities included regular data centre checkups, troubleshooting staff laptops, basic networking and maintaining printers and scanners.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative timeline-item pl-10">
+                        <div class="card p-6">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                                <h3 class="text-xl font-semibold">Data Entry Specialist</h3>
+                                <span class="text-sm font-medium px-3 py-1 rounded-full" style="background: rgba(58, 134, 255, 0.2); color: var(--primary);">2023 - 2024</span>
+                            </div>
+                            <h4 class="text-lg font-medium mb-2" style="color: var(--primary);">EDNS Domains, Hong Kong</h4>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                Handled large-scale data entry tasks and contributed to content engagement strategies for domain-related platforms.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+<section id="projects" class="py-20 px-4 md:px-8 lg:px-16 section" style="background: var(--bg);">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Work</span></h1>
+            <div class="w-24 h-1 rounded-full mx-auto" style="background: linear-gradient(90deg, var(--primary), var(--secondary));"></div>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">Here is one of my notable projects showcasing my skills and experience.</p>
+        </div>
+        
+        <div class="card overflow-hidden group">
+            <div class="overflow-hidden h-48">
+                <img src="project.png" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Enterprise Crowdsourcing System</h3>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">A web-based platform that enables employees and stakeholders to collaboratively submit, discuss, and vote on ideas to drive innovation within an organization.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-xs px-2 py-1 rounded-full" style="background: rgba(58, 134, 255, 0.2); color: var(--primary);">React</span>
+                    <span class="text-xs px-2 py-1 rounded-full" style="background: rgba(58, 134, 255, 0.2); color: var(--primary);">Tailwind CSS</span>
+                    <span class="text-xs px-2 py-1 rounded-full" style="background: rgba(58, 134, 255, 0.2); color: var(--primary);">Next.js</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 md:px-8 lg:px-16 section" style="background: var(--card);">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h1>
+                <div class="w-24 h-1 rounded-full mx-auto" style="background: linear-gradient(90deg, var(--primary), var(--secondary));"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">Have a project in mind or want to discuss potential opportunities? I'd love to hear from you!</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-2xl font-semibold mb-6">Contact Information</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full mr-4" style="background: rgba(58, 134, 255, 0.1);">
+                                <i class="fas fa-envelope text-xl" style="color: var(--primary);"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-lg">Email</h3>
+                                <p class="text-gray-700 dark:text-gray-300">kjessicawairimu@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full mr-4" style="background: rgba(58, 134, 255, 0.1);">
+                                <i class="fas fa-phone text-xl" style="color: var(--primary);"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-lg">Phone</h3>
+                                <p class="text-gray-700 dark:text-gray-300">(254) 700 797 805</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex items-center justify-center w-12 h-12 rounded-full mr-4" style="background: rgba(58, 134, 255, 0.1);">
+                                <i class="fas fa-map-marker-alt text-xl" style="color: var(--primary);"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-lg">Location</h3>
+                                <p class="text-gray-700 dark:text-gray-300">Nairobi, Kenya</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h3 class="text-xl font-semibold mb-4">Connect With Me</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full" style="background: rgba(58, 134, 255, 0.1);">
+                                <i class="fab fa-linkedin-in" style="color: var(--primary);"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full" style="background: rgba(58, 134, 255, 0.1);">
+                                <i class="fab fa-github" style="color: var(--primary);"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full" style="background: rgba(58, 134, 255, 0.1);">
+                                <i class="fab fa-twitter" style="color: var(--primary);"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full" style="background: rgba(58, 134, 255, 0.1);">
+                                <i class="fab fa-dribbble" style="color: var(--primary);"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg" style="background: var(--bg); border: 1px solid rgba(0, 0, 0, 0.1);">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg" style="background: var(--bg); border: 1px solid rgba(0, 0, 0, 0.1);">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg" style="background: var(--bg); border: 1px solid rgba(0, 0, 0, 0.1);">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg" style="background: var(--bg); border: 1px solid rgba(0, 0, 0, 0.1);"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full px-6 py-3 rounded-full font-medium" style="background: var(--primary); color: white;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-4 md:px-8 lg:px-16 text-center" style="background: var(--bg); border-top: 1px solid rgba(0, 0, 0, 0.1);">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="hover:opacity-80 transition">
+                    <i class="fab fa-linkedin-in" style="color: var(--primary);"></i>
+                </a>
+                <a href="#" class="hover:opacity-80 transition">
+                    <i class="fab fa-github" style="color: var(--primary);"></i>
+                </a>
+                <a href="#" class="hover:opacity-80 transition">
+                    <i class="fab fa-twitter" style="color: var(--primary);"></i>
+                </a>
+                <a href="#" class="hover:opacity-80 transition">
+                    <i class="fab fa-dribbble" style="color: var(--primary);"></i>
+                </a>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300">Created by Jessica Kamau</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or use preferred color scheme
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            themeToggle.checked = true;
+        }
+        
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // observer.unobserve(entry.target); // Uncomment if you want animation to happen only once
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
